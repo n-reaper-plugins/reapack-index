@@ -28,15 +28,15 @@ jobs:
           mkdir -p temp_repos
           cd temp_repos
           
-          git clone --depth 1 https://github.com/n-reaper-plugins/prototype-sequence.git
-          git clone --depth 1 https://github.com/n-reaper-plugins/granular-generator.git
-          git clone --depth 1 https://github.com/n-reaper-plugins/gain-stage-eq.git
-          git clone --depth 1 https://github.com/n-reaper-plugins/gingersnap-repl.git
+          git clone https://github.com/n-reaper-plugins/prototype-sequence.git
+          git clone https://github.com/n-reaper-plugins/granular-generator.git
+          git clone https://github.com/n-reaper-plugins/gain-stage-eq.git
+          git clone https://github.com/n-reaper-plugins/gingersnap-repl.git
 
       - name: Generate index.xml
         run: |
           # Use --no-commit to generate/update index.xml without prompting or committing inside Ruby
-          reapack-index --no-commit --name "_n_plugins Plugins" temp_repos/*
+          reapack-index --no-commit --verbose --name "_n_plugins Plugins" temp_repos/*
 
       - name: Clean up temporary clones
         if: always()
