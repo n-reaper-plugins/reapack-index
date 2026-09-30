@@ -38,14 +38,43 @@ jobs:
 
       - name: Generate index.xml
         run: |
-          reapack-index \
-            --no-commit \
-            --verbose \
-            --output index.xml \
-            --name "_n_plugins Plugins" \
-            --ignore "Archive/**" \
-            --ignore "**/dev/**" \
-            temp_repos/*
+          echo 'author: "Your Name"' > ~/.reapack-index.conf
+
+          # reapack-index \
+          #   --no-commit \
+          #   --verbose \
+          #   --output index.xml \
+          #   --name "_n_plugins" \
+          #   --ignore "Archive/**" \
+          #   --ignore "**/dev/**" \
+          #   --ignore "*/*" \
+          #   temp_repos/*
+
+          # Remove existing output file to start clean
+          rm -f index.xml
+
+          # Loop through each cloned repo and merge into index.xml
+          for repo in temp_repos/*; do
+            echo "Processing $repo..."
+            if [ ! -f index.xml ]; then
+              reapack-index \
+                --no-commit \
+                --verbose \
+                --output index.xml \
+                --name "_n_plugins" \
+                --ignore "*/*" \
+                "$repo"
+            else
+              reapack-index \
+                --no-commit \
+                --amend \
+                --verbose \
+                --output index.xml \
+                --name "_n_plugins" \
+                --ignore "*/*" \
+                "$repo"
+            fi
+          done
 
       - name: Clean up temporary clones
         if: always()
