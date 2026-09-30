@@ -50,7 +50,8 @@ jobs:
                 --verbose \
                 --output index.xml \
                 --name "_n_plugins" \
-                --ignore "Archive/ dev/" \
+                --ignore "Archive/" \
+                --ignore "dev/" \
                 "$repo"
             else
               reapack-index \
@@ -59,7 +60,8 @@ jobs:
                 --verbose \
                 --output index.xml \
                 --name "_n_plugins" \
-                --ignore "Archive/ dev/" \
+                --ignore "Archive/" \
+                --ignore "dev/" \
                 "$repo"
             fi
           done
