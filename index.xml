@@ -1,2 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="_n_plugins"/>
+<index version="1" name="_n_plugins">
+  <category name="Scripts">
+    <reapack name="GainStageEQ.lua" type="script" desc="Gain Stage EQ: set the level of a track (average / peak) and level its 4-band spectrum tilt with ReaEQ">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 Arial;}}
+\pard Scans ALL items on ONE selected track (take audio, time selection respected), measures the average (RMS of the active audio) and peak level, applies a gain to reach your target, then measures the energy in four bands and sets up ReaEQ (low shelf, two bells, high shelf) to bring the spectrum onto a target tilt. The gain stage and the EQ stage can be used separately. Works on a duplicate of the track by default. The ReaEQ is put on every audio ITEM of the result track (take FX). A live PREVIEW track follows your settings. Optional: a small JSFX trim (installed on demand) as the way to apply the gain. Requires ReaImGui (ReaPack > ReaTeam Extensions).\par
+}]]></description>
+        <link rel="website" href="https://github.com/n-reaper-plugins/gain-stage-eq">gain-stage-eq</link>
+        <link rel="screenshot" href="https://raw.githubusercontent.com/n-reaper-plugins/gain-stage-eq/5096071b817eb4091e9dd1c790a0fddc6c5621af/screenshot.png">Screenshot</link>
+      </metadata>
+      <version name="0.1.1" author="_n_plugins" time="2026-09-30T10:35:38Z">
+        <changelog><![CDATA[* **ReaEQ is now take FX on every audio item** of the result track (was: one instance on the track). Solved once through the
+  plug-in's own parameter text and copied to the other items. Our ReaEQ is switched off while its item is being analysed, so
+  re-running on a result never measures the EQ twice.
+* **EQ amount** (0-100 %): scales all four band gains of the finished EQ. (Strength scales the measured error *before* the
+  per-band limit and dead band; EQ amount scales the result.)
+* **Live PREVIEW track**: copy of the source with the current gain + EQ, tagged (renaming is fine), re-synced ~0.25 s after the
+  last slider move. Source muted while it exists (optional, restored afterwards). "Keep PREVIEW as new track" turns it into the
+  result. Removed when unticked, when the source track/items change, or when the window closes.
+* Fix: `math.sinh` (not in REAPER's Lua) crashed the EQ design.
+* Tests run without the deprecated `math` functions, like REAPER.]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/n-reaper-plugins/gain-stage-eq/3a0a2310545ecbca7bf6069e9d36355bfae68cd0/dist/GainStageEQ.lua</source>
+      </version>
+    </reapack>
+    <reapack name="Gingersnap.lua" type="script" desc="Gingersnap: minimal Strudel subset for REAPER - render patterns into the project (audio items and/or MIDI)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 Arial;}}
+\pard Gingersnap is a minimal Strudel subset for REAPER (not affiliated with the Strudel project). Run this action to open the Gingersnap window (needs ReaImGui: ReaPack > ReaTeam Extensions; a folder dialog additionally needs js_ReaScriptAPI, otherwise a file dialog / drag&drop / typing is used).\par
+\pard 1. Choose a sounds root folder with one sub-folder per sound (root/bd, root/sn, root/hh).\par
+\pard 2. "New pattern" inserts an EMPTY item on the timeline; its notes hold the code, e.g.  $: s("bd*2, ~ sn")\par
+\pard 3. The pattern is rendered into the item's time range: audio items on tracks under a GINGERSNAP folder, and/or MIDI notes (one track per $: line). Move or resize the item and the result follows. s("bd:3") = 4th file of folder bd; s("bd").n(3) too.  1 cycle = "beats per cycle" quarter notes (default 4). Run the action again while the window is open to close it. Pattern engine: strudel-lua, a Lua implementation of Strudel's semantics. AGPL-3.0-or-later.\par
+}]]></description>
+        <link rel="website" href="https://github.com/n-reaper-plugins/gingersnap-repl">gingersnap-repl</link>
+        <link rel="screenshot" href="https://raw.githubusercontent.com/n-reaper-plugins/gingersnap-repl/e35e4cd272654d6438951d3f33585fa2d7dd0246/screenshot.png">Screenshot</link>
+      </metadata>
+      <version name="0.1.0" author="_n_plugins" time="2026-09-30T10:35:15Z">
+        <changelog><![CDATA[* Named Gingersnap (working title was StrudelReaper).
+* Pattern items: EMPTY timeline items whose notes hold the code; move / resize / copy them freely.
+* Sounds: one folder per sound name; `s("bd:3")` / `n(3)` pick the Nth file (wraps); drop zone + default folder as in PrototypeSequence.
+* Output per pattern: audio items, MIDI notes, or both, from the same code. One MIDI track per `$:` / `label:` line.
+* Time: 1 cycle = N quarter notes (default 4), follows the tempo map; voice tracks avoid overlapping items.
+* Live rendering with debounce, keyed diff (hand edits survive), errors pause rendering, per-pattern Freeze, Detach.
+* strudel-lua: mini-notation, whitelist evaluator, ~90 functions, checked against Strudel 1.2.6 (483/483 identical).]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/n-reaper-plugins/gingersnap-repl/e35e4cd272654d6438951d3f33585fa2d7dd0246/dist/Gingersnap.lua</source>
+      </version>
+    </reapack>
+    <reapack name="Granular.lua" type="script" desc="Granular: live granular synthesis on REAPER items (one action: engine + window)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 Arial;}}
+\pard Run this action to open the Granular window. The first run also starts the background engine and installs the JSFX "Granular Generator (control)" (Effects/Granular/GranularGen.jsfx). Run it again to show/hide the window. The engine keeps running until you press "Quit engine". Window needs ReaImGui (ReaPack > ReaTeam Extensions); without it the engine runs headless and running the action again stops it.\par
+}]]></description>
+        <link rel="website" href="https://github.com/n-reaper-plugins/granular-generator">granular-generator</link>
+        <link rel="screenshot" href="https://raw.githubusercontent.com/n-reaper-plugins/granular-generator/64b1b8ec5fd4434e3d56e287636d5512e90ecaf1/screenshot.png">Screenshot</link>
+      </metadata>
+      <version name="0.2.1" author="_n_plugins" time="2026-09-30T10:35:43Z">
+        <changelog><![CDATA[- Preview moved to the top of the window; parameters in three logical columns (when & where / sound / pattern & shaping).
+- **Euclid** grain pattern (n hits / m steps, rotation, step length), locked to the project tempo map, all automatable:
+  *Gate* mode (hits play) and *A/B switch* mode (hits use B values for pitch, length, gain, pan), with its own probability.
+  Pattern strip with playhead step in the window.
+- **Loop**: repeat each grain 1-16 times (automatable) as back-to-back items.
+- "Original core.py preset" became a *Reset to preset* dropdown: Defaults, Original core.py, Texture cloud, Euclid rhythm.
+- The tempo map is now part of the change signature (sync/snap/Euclid regenerate when the tempo changes).
+- 11 sliders appended (56 total); slider order of 0.1/0.2 unchanged; grains are identical to 0.2.0 when the new features are off.]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/n-reaper-plugins/granular-generator/aaf9adb170bfaa2f2985b5f6365a2603c8d0c076/dist/Granular.lua</source>
+      </version>
+    </reapack>
+    <reapack name="PrototypeSequence.lua" type="script" desc="PrototypeSequence: random sound sequences on one PROTO folder track, driven by markers &amp; regions">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 Arial;}}
+\pard Run this action to open the PrototypeSequence window (needs ReaImGui: ReaPack > ReaTeam Extensions; a folder dialog additionally needs js_ReaScriptAPI, otherwise a file dialog / drag&drop / typing is used). Choose a sounds root folder with one sub-folder per sound group (root/bells, root/whistles). Every marker or region NAMED like a sub-folder gets that group: one track per sound, all items placed, one picked by the seed (from seed + marker number + file name) and the others muted. Run the action again while the window is open to close it.\par
+}]]></description>
+        <link rel="website" href="https://github.com/n-reaper-plugins/prototype-sequence">prototype-sequence</link>
+        <link rel="screenshot" href="https://raw.githubusercontent.com/n-reaper-plugins/prototype-sequence/7c59063fc58d2e596169213d34f8872716b06b9b/screenshot.png">Screenshot</link>
+      </metadata>
+      <version name="0.1.6" author="_n_plugins" time="2026-09-30T11:50:10Z">
+        <changelog><![CDATA[* Sounds folder: per project (as before) plus an explicit **default for new projects** (Make this the default / Use the default here). Old 0.1.x global key migrates.
+* Track names are written only at creation: renaming PROTO / folders / sound tracks is safe; a look-alike "PROTO" track is ignored.
+* Duplicated managed tracks are released (kept, untagged) instead of deleted.
+* **Detach...**: stop managing for good, keep tracks and items.
+* Window shows the managed root's real name + **Show** button.
+* Project state is only written when it changed (no "modified" flag from opening the window or toggling Follow).
+* Fade-out for trimmed items is now editable (was stored but hidden) and applies to existing items.]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/n-reaper-plugins/prototype-sequence/7c59063fc58d2e596169213d34f8872716b06b9b/dist/PrototypeSequence.lua</source>
+      </version>
+    </reapack>
+  </category>
+</index>
