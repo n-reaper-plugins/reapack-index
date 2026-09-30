@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="_n_plugins" commit="fa25234cef07ce9917f1bad8cfd11a65d398d8ef">
+<index version="1" name="_n_plugins" commit="7432519efee2245109e33648316422b255d8d983">
   <category name="Archive">
     <reapack name="Granular.lua" type="script" desc="Granular: live granular synthesis on REAPER items (one action: engine + window)">
       <metadata>
@@ -96,6 +96,22 @@
       </version>
     </reapack>
   </category>
+  <category name="Archive/v0.1.6/dist">
+    <reapack name="PrototypeSequence.lua" type="script" desc="PrototypeSequence: random sound sequences on one PROTO folder track, driven by markers &amp; regions">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Run this action to open the PrototypeSequence window (needs ReaImGui: ReaPack > ReaTeam Extensions; a folder dialog additionally needs js_ReaScriptAPI, otherwise a file dialog / drag&drop / typing is used). Choose a sounds root folder with one sub-folder per sound group (root/bells, root/whistles). Every marker or region NAMED like a sub-folder gets that group: one track per sound, all items placed, one picked by the seed (from seed + marker number + file name) and the others muted. Run the action again while the window is open to close it.\par}
+}
+]]></description>
+      </metadata>
+      <version name="0.1.6" author="_n_plugins" time="2026-09-30T10:41:46Z">
+        <source main="main">https://github.com/n-reaper-plugins/prototype-sequence/raw/7432519efee2245109e33648316422b255d8d983/Archive/v0.1.6/dist/PrototypeSequence.lua</source>
+      </version>
+    </reapack>
+  </category>
   <category name="Archive/v0.2.1">
     <reapack name="Granular.lua" type="script" desc="Granular: live granular synthesis on REAPER items (one action: engine + window)">
       <metadata>
@@ -109,22 +125,6 @@
       </metadata>
       <version name="0.2.1" time="2026-09-29T19:25:27Z">
         <source main="main">https://github.com/n-reaper-plugins/granular-generator/raw/a92b107f9f312b65596e4699e0f6fdfb2f4e25f3/Archive/v0.2.1/Granular.lua</source>
-      </version>
-    </reapack>
-  </category>
-  <category name="Archive/v01.6/dist">
-    <reapack name="PrototypeSequence.lua" type="script" desc="PrototypeSequence: random sound sequences on one PROTO folder track, driven by markers &amp; regions">
-      <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 Run this action to open the PrototypeSequence window (needs ReaImGui: ReaPack > ReaTeam Extensions; a folder dialog additionally needs js_ReaScriptAPI, otherwise a file dialog / drag&drop / typing is used). Choose a sounds root folder with one sub-folder per sound group (root/bells, root/whistles). Every marker or region NAMED like a sub-folder gets that group: one track per sound, all items placed, one picked by the seed (from seed + marker number + file name) and the others muted. Run the action again while the window is open to close it.\par}
-}
-]]></description>
-      </metadata>
-      <version name="0.1.6" time="2026-09-29T19:32:08Z">
-        <source main="main">https://github.com/n-reaper-plugins/prototype-sequence/raw/fa25234cef07ce9917f1bad8cfd11a65d398d8ef/Archive/v01.6/dist/PrototypeSequence.lua</source>
       </version>
     </reapack>
   </category>
@@ -188,20 +188,6 @@
       </metadata>
       <version name="0.2.1" author="_n_plugins" time="2026-09-30T10:35:43Z">
         <source main="main">https://github.com/n-reaper-plugins/granular-generator/raw/aaf9adb170bfaa2f2985b5f6365a2603c8d0c076/dist/Granular.lua</source>
-      </version>
-    </reapack>
-    <reapack name="PrototypeSequence.lua" type="script" desc="PrototypeSequence: random sound sequences on one PROTO folder track, driven by markers &amp; regions">
-      <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 Run this action to open the PrototypeSequence window (needs ReaImGui: ReaPack > ReaTeam Extensions; a folder dialog additionally needs js_ReaScriptAPI, otherwise a file dialog / drag&drop / typing is used). Choose a sounds root folder with one sub-folder per sound group (root/bells, root/whistles). Every marker or region NAMED like a sub-folder gets that group: one track per sound, all items placed, one picked by the seed (from seed + marker number + file name) and the others muted. Run the action again while the window is open to close it.\par}
-}
-]]></description>
-      </metadata>
-      <version name="0.1.6" time="2026-09-29T19:32:08Z">
-        <source main="main">https://github.com/n-reaper-plugins/prototype-sequence/raw/fa25234cef07ce9917f1bad8cfd11a65d398d8ef/dist/PrototypeSequence.lua</source>
       </version>
     </reapack>
   </category>
