@@ -44,21 +44,31 @@ jobs:
       #       rm -rf "$repo/dev"
       #     done
 
-      - name: Keep only root Lua file
+      - name: Keep only dist Lua file
         run: |
           for repo in temp_repos/*; do
             echo "Processing $repo..."
 
-            lua_file=$(find "$repo" -maxdepth 1 -type f -name '*.lua' -print -quit)
+            lua_file=$(find "$repo/dist" -maxdepth 1 -type f -name '*.lua' -print -quit)
 
             if [ -z "$lua_file" ]; then
-              echo "ERROR: No root-level .lua file found in $repo"
+              echo "ERROR: No .lua file found in $repo/dist"
               exit 1
             fi
 
             echo "Keeping: $lua_file"
 
+            # Remove everything except the dist directory
             for item in "$repo"/* "$repo"/.[!.]* "$repo"/..?*; do
+              [ -e "$item" ] || continue
+
+              if [ "$item" != "$repo/dist" ]; then
+                rm -rf "$item"
+              fi
+            done
+
+            # Remove everything inside dist except the selected Lua file
+            for item in "$repo/dist"/* "$repo/dist"/.[!.]* "$repo/dist"/..?*; do
               [ -e "$item" ] || continue
 
               if [ "$item" != "$lua_file" ]; then
