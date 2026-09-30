@@ -36,6 +36,14 @@ jobs:
           git clone https://github.com/n-reaper-plugins/gain-stage-eq.git
           git clone https://github.com/n-reaper-plugins/gingersnap-repl.git
 
+      - name: Remove ignored folders
+        run: |
+          for repo in temp_repos/*; do
+            echo "Cleaning $repo..."
+            rm -rf "$repo/Archive"
+            rm -rf "$repo/dev"
+          done
+
       - name: Configure reapack-index
         run: |
           for repo in temp_repos/*; do
