@@ -1,3 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<index version="1" name="_n_plugins Plugins">
-</index>
+<?xml version="1.0" encoding="utf-8"?>
+<index version="1" name="_n_plugins Plugins" commit="7fe3792b495a6c99504e489858690a555ba1d5e8">
+<category name="Archive/v0.1.0"><reapack name="GainStageEQ.lua" type="script" desc="Gain Stage EQ: set the level of a track (average / peak) and level its 4-band spectrum tilt with ReaEQ"><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Scans ALL items on ONE selected track (take audio, time selection respected), measures the average (RMS of the active audio) and peak level, applies a gain to reach your target, then measures the energy in four bands and sets up ReaEQ (low shelf, two bells, high shelf) to bring the spectrum onto a target tilt. The gain stage and the EQ stage can be used separately. Works on a duplicate of the track by default. Optional: a small JSFX trim (installed on demand) as the way to apply the gain. Requires ReaImGui (ReaPack > ReaTeam Extensions).\par}
+}
+]]></description></metadata><version name="0.1.0" time="2026-09-30T06:54:18Z"><source main="main">https://github.com/n-reaper-plugins/gain-stage-eq/raw/7fe3792b495a6c99504e489858690a555ba1d5e8/Archive/v0.1.0/GainStageEQ.lua</source></version></reapack></category><category name="Archive/v0.1.0/dev/dist"><reapack name="GainStageEQ.lua" type="script" desc="Gain Stage EQ: set the level of a track (average / peak) and level its 4-band spectrum tilt with ReaEQ"><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Scans ALL items on ONE selected track (take audio, time selection respected), measures the average (RMS of the active audio) and peak level, applies a gain to reach your target, then measures the energy in four bands and sets up ReaEQ (low shelf, two bells, high shelf) to bring the spectrum onto a target tilt. The gain stage and the EQ stage can be used separately. Works on a duplicate of the track by default. Optional: a small JSFX trim (installed on demand) as the way to apply the gain. Requires ReaImGui (ReaPack > ReaTeam Extensions).\par}
+}
+]]></description></metadata><version name="0.1.0" time="2026-09-30T06:54:18Z"><source main="main">https://github.com/n-reaper-plugins/gain-stage-eq/raw/7fe3792b495a6c99504e489858690a555ba1d5e8/Archive/v0.1.0/dev/dist/GainStageEQ.lua</source></version></reapack></category><category name="Archive/v0.1.1/dev/dist"><reapack name="GainStageEQ.lua" type="script" desc="Gain Stage EQ: set the level of a track (average / peak) and level its 4-band spectrum tilt with ReaEQ"><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Scans ALL items on ONE selected track (take audio, time selection respected), measures the average (RMS of the active audio) and peak level, applies a gain to reach your target, then measures the energy in four bands and sets up ReaEQ (low shelf, two bells, high shelf) to bring the spectrum onto a target tilt. The gain stage and the EQ stage can be used separately. Works on a duplicate of the track by default. The ReaEQ is put on every audio ITEM of the result track (take FX). A live PREVIEW track follows your settings. Optional: a small JSFX trim (installed on demand) as the way to apply the gain. Requires ReaImGui (ReaPack > ReaTeam Extensions).\par}
+}
+]]></description></metadata><version name="0.1.1" time="2026-09-30T06:54:18Z"><source main="main">https://github.com/n-reaper-plugins/gain-stage-eq/raw/7fe3792b495a6c99504e489858690a555ba1d5e8/Archive/v0.1.1/dev/dist/GainStageEQ.lua</source></version></reapack></category><category name="dev/dist"><reapack name="GainStageEQ.lua" type="script" desc="Gain Stage EQ: set the level of a track (average / peak) and level its 4-band spectrum tilt with ReaEQ"><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Scans ALL items on ONE selected track (take audio, time selection respected), measures the average (RMS of the active audio) and peak level, applies a gain to reach your target, then measures the energy in four bands and sets up ReaEQ (low shelf, two bells, high shelf) to bring the spectrum onto a target tilt. The gain stage and the EQ stage can be used separately. Works on a duplicate of the track by default. The ReaEQ is put on every audio ITEM of the result track (take FX). A live PREVIEW track follows your settings. Optional: a small JSFX trim (installed on demand) as the way to apply the gain. Requires ReaImGui (ReaPack > ReaTeam Extensions).\par}
+}
+]]></description></metadata><version name="0.1.1" time="2026-09-30T06:54:18Z"><source main="main">https://github.com/n-reaper-plugins/gain-stage-eq/raw/7fe3792b495a6c99504e489858690a555ba1d5e8/dev/dist/GainStageEQ.lua</source></version></reapack></category></index>
