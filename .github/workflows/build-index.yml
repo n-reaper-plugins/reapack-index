@@ -36,6 +36,15 @@ jobs:
           git clone https://github.com/n-reaper-plugins/gain-stage-eq.git
           git clone https://github.com/n-reaper-plugins/gingersnap-repl.git
 
+      - name: Configure reapack-index
+        run: |
+          for repo in temp_repos/*; do
+            cat > "$repo/.reapack-index.conf" <<'EOF'
+          --ignore "Archive/**"
+          --ignore "dev/**"
+          EOF
+          done
+
       - name: Generate index.xml
         run: |
           # Remove existing output file to start clean
