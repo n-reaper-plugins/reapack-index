@@ -36,9 +36,17 @@ jobs:
           git clone https://github.com/n-reaper-plugins/gain-stage-eq.git
           git clone https://github.com/n-reaper-plugins/gingersnap-repl.git
 
+      - name: Configure default author for cloned repos
+        run: |
+          for repo in temp_repos/*; do
+            cat << 'EOF' > "$repo/.reapack-index.conf"
+          :author: "_n_plugins"
+          EOF
+          done
+
       - name: Generate index.xml
         run: |
-          echo 'author: "Your Name"' > ~/.reapack-index.conf
+          # echo 'author: "Your Name"' > ~/.reapack-index.conf
 
           # reapack-index \
           #   --no-commit \
@@ -47,7 +55,7 @@ jobs:
           #   --name "_n_plugins" \
           #   --ignore "Archive/**" \
           #   --ignore "**/dev/**" \
-          #   --ignore "*/*" \
+          #   --ignore "dev/**" \
           #   temp_repos/*
 
           # Remove existing output file to start clean
@@ -62,7 +70,8 @@ jobs:
                 --verbose \
                 --output index.xml \
                 --name "_n_plugins" \
-                --ignore "*/*" \
+                --ignore "Archive/**" \
+                --ignore "dev/**" \
                 "$repo"
             else
               reapack-index \
@@ -71,7 +80,8 @@ jobs:
                 --verbose \
                 --output index.xml \
                 --name "_n_plugins" \
-                --ignore "*/*" \
+                --ignore "Archive/**" \
+                --ignore "dev/**" \
                 "$repo"
             fi
           done
