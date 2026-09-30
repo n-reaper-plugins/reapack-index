@@ -36,12 +36,35 @@ jobs:
           git clone https://github.com/n-reaper-plugins/gain-stage-eq.git
           git clone https://github.com/n-reaper-plugins/gingersnap-repl.git
 
-      - name: Remove ignored folders
+      # - name: Remove ignored folders
+      #   run: |
+      #     for repo in temp_repos/*; do
+      #       echo "Cleaning $repo..."
+      #       rm -rf "$repo/Archive"
+      #       rm -rf "$repo/dev"
+      #     done
+
+      - name: Keep only root Lua file
         run: |
           for repo in temp_repos/*; do
-            echo "Cleaning $repo..."
-            rm -rf "$repo/Archive"
-            rm -rf "$repo/dev"
+            echo "Processing $repo..."
+
+            lua_file=$(find "$repo" -maxdepth 1 -type f -name '*.lua' -print -quit)
+
+            if [ -z "$lua_file" ]; then
+              echo "ERROR: No root-level .lua file found in $repo"
+              exit 1
+            fi
+
+            echo "Keeping: $lua_file"
+
+            for item in "$repo"/* "$repo"/.[!.]* "$repo"/..?*; do
+              [ -e "$item" ] || continue
+
+              if [ "$item" != "$lua_file" ]; then
+                rm -rf "$item"
+              fi
+            done
           done
 
       - name: Configure reapack-index
