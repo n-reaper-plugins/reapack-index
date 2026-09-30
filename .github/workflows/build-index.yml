@@ -32,7 +32,7 @@ jobs:
       - name: Generate index.xml
         run: |
           # Scans all repositories inside temp_repos and outputs index.xml in root
-          reapack-index --name "_n_plugins Plugins" --amend temp_repos/*
+          reapack-index --commit --name "_n_plugins Plugins" --amend temp_repos/*
 
       - name: Clean up temporary clones
         if: always()
