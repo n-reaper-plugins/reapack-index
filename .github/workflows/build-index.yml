@@ -15,6 +15,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install Pandoc 
+        run: sudo apt-get update && sudo apt-get install -y pandoc
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -35,8 +38,14 @@ jobs:
 
       - name: Generate index.xml
         run: |
-          # Use --no-commit to generate/update index.xml without prompting or committing inside Ruby
-          reapack-index --no-commit --verbose --name "_n_plugins Plugins" temp_repos/*
+          reapack-index \
+            --no-commit \
+            --verbose \
+            --output index.xml \
+            --name "_n_plugins Plugins" \
+            --ignore "Archive/**" \
+            --ignore "**/dev/**" \
+            temp_repos/*
 
       - name: Clean up temporary clones
         if: always()
