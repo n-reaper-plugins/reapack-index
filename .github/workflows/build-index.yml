@@ -3,6 +3,17 @@ name: Build ReaPack Index
 on:
   workflow_dispatch: # Allows manual triggering from GitHub UI
 
+concurrency:
+  group: build-index
+  cancel-in-progress: false
+
+env:
+  ORG: n-reaper-plugins
+  INDEX_NAME: _n_plugins
+  # One package per repo, taken from that repo's top-level dist/ folder.
+  # Add a repo name here to add a package.
+  REPOS: prototype-sequence granular-generator gain-stage-eq gingersnap-repl
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,102 +26,41 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Pandoc 
-        run: sudo apt-get update && sudo apt-get install -y pandoc
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-
-      - name: Install reapack-index CLI
-        run: gem install reapack-index
-
+      # Full clones (not shallow): the build reads each dist file's last-commit date and SHA.
+      # Nothing is deleted from the clones - they are only read.
       - name: Clone plugin repositories temporarily
         run: |
+          set -euo pipefail
+          rm -rf temp_repos
           mkdir -p temp_repos
-          cd temp_repos
-          
-          git clone https://github.com/n-reaper-plugins/prototype-sequence.git
-          git clone https://github.com/n-reaper-plugins/granular-generator.git
-          git clone https://github.com/n-reaper-plugins/gain-stage-eq.git
-          git clone https://github.com/n-reaper-plugins/gingersnap-repl.git
-
-      # - name: Remove ignored folders
-      #   run: |
-      #     for repo in temp_repos/*; do
-      #       echo "Cleaning $repo..."
-      #       rm -rf "$repo/Archive"
-      #       rm -rf "$repo/dev"
-      #     done
-
-      - name: Keep only dist Lua file
-        run: |
-          for repo in temp_repos/*; do
-            echo "Processing $repo..."
-
-            lua_file=$(find "$repo/dist" -maxdepth 1 -type f -name '*.lua' -print -quit)
-
-            if [ -z "$lua_file" ]; then
-              echo "ERROR: No .lua file found in $repo/dist"
-              exit 1
-            fi
-
-            echo "Keeping: $lua_file"
-
-            # Move the selected Lua file to the repository root
-            cp "$lua_file" "$repo/"
-
-            # Remove everything except the selected Lua file
-            keep_file="$repo/$(basename "$lua_file")"
-
-            for item in "$repo"/* "$repo"/.[!.]* "$repo"/..?*; do
-              [ -e "$item" ] || continue
-
-              if [ "$item" != "$keep_file" ]; then
-                rm -rf "$item"
-              fi
-            done
+          for repo in $REPOS; do
+            git clone --quiet "https://github.com/$ORG/$repo.git" "temp_repos/$repo"
           done
 
-      - name: Configure reapack-index
-        run: |
-          for repo in temp_repos/*; do
-            cat > "$repo/.reapack-index.conf" <<'EOF'
-          --ignore "Archive/**"
-          --ignore "dev/**"
-          EOF
-          done
-
+      # Fails if a repo's dist/ does not contain exactly one .lua file with @description and @version.
+      # Versions already listed in index.xml are kept, so ReaPack users can still see older releases.
       - name: Generate index.xml
         run: |
-          # Remove existing output file to start clean
-          rm -f index.xml
+          set -euo pipefail
+          python3 tools/build_index.py \
+            --org "$ORG" \
+            --name "$INDEX_NAME" \
+            --repos-dir temp_repos \
+            --output index.xml \
+            $REPOS
 
-          # Loop through each cloned repo and merge into index.xml
-          for repo in temp_repos/*; do
-            echo "Processing $repo..."
-            if [ ! -f index.xml ]; then
-              reapack-index \
-                --no-commit \
-                --verbose \
-                --output index.xml \
-                --name "_n_plugins" \
-                --ignore "Archive/" \
-                --ignore "dev/" \
-                "$repo"
-            else
-              reapack-index \
-                --no-commit \
-                --amend \
-                --verbose \
-                --output index.xml \
-                --name "_n_plugins" \
-                --ignore "Archive/" \
-                --ignore "dev/" \
-                "$repo"
-            fi
-          done
+      - name: Verify index.xml
+        run: |
+          set -euo pipefail
+          set -- $REPOS
+          expected=$#
+          found=$(grep -c '<reapack ' index.xml || true)
+          echo "packages in index.xml: $found (expected $expected)"
+          if [ "$found" -ne "$expected" ]; then
+            echo "ERROR: index.xml must contain exactly $expected packages"
+            exit 1
+          fi
+          grep '<reapack ' index.xml | sed 's/ desc=.*//'
 
       - name: Clean up temporary clones
         if: always()
@@ -121,16 +71,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          if [ -f index.xml ]; then
-            git add index.xml
-            if git diff --staged --quiet; then
-              echo "No changes detected in index.xml."
-            else
-              git commit -m "chore: rebuild ReaPack index.xml"
-              git push
-            fi
+
+          git add index.xml
+          if git diff --staged --quiet; then
+            echo "No changes detected in index.xml."
           else
-            echo "Error: index.xml was not generated by reapack-index."
-            exit 1
+            git commit -m "chore: rebuild ReaPack index.xml"
+            git push
           fi
