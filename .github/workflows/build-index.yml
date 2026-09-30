@@ -12,7 +12,8 @@ env:
   INDEX_NAME: _n_plugins
   # One package per repo, taken from that repo's top-level dist/ folder.
   # Add a repo name here to add a package.
-  REPOS: prototype-sequence granular-generator gain-stage-eq gingersnap-repl nested-projects alias-track
+  REPOS: prototype-sequence granular-generator gain-stage-eq gingersnap-repl alias-track
+  # nested-projects TODO: currently 2 files in dist/ folder
 
 jobs:
   build:
