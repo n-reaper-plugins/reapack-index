@@ -58,20 +58,16 @@ jobs:
 
             echo "Keeping: $lua_file"
 
-            # Remove everything except the dist directory
+            # Move the selected Lua file to the repository root
+            cp "$lua_file" "$repo/"
+
+            # Remove everything except the selected Lua file
+            keep_file="$repo/$(basename "$lua_file")"
+
             for item in "$repo"/* "$repo"/.[!.]* "$repo"/..?*; do
               [ -e "$item" ] || continue
 
-              if [ "$item" != "$repo/dist" ]; then
-                rm -rf "$item"
-              fi
-            done
-
-            # Remove everything inside dist except the selected Lua file
-            for item in "$repo/dist"/* "$repo/dist"/.[!.]* "$repo/dist"/..?*; do
-              [ -e "$item" ] || continue
-
-              if [ "$item" != "$lua_file" ]; then
+              if [ "$item" != "$keep_file" ]; then
                 rm -rf "$item"
               fi
             done
