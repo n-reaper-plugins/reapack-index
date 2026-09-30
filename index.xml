@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <index version="1" name="_n_plugins">
   <category name="Scripts">
+    <reapack name="AliasTrack.lua" type="script" desc="AliasTrack: linked item groups inside REAPER folders (alias items that move, cut and copy their contents)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 Arial;}}
+\pard Select items on tracks inside one folder and group them: an ALIAS lane appears in that folder with one alias item spanning the selection. Moving the alias moves its members, trimming it hides/reveals them, cutting it (or any member) cuts the whole group, and copying it makes a linked copy. Aliases on the COPIES lane are independent. Needs ReaImGui (ReaPack > ReaTeam Extensions). Run the action again while the window is open to close it.\par
+}]]></description>
+        <link rel="website" href="https://github.com/n-reaper-plugins/alias-track">alias-track</link>
+        <link rel="screenshot" href="https://raw.githubusercontent.com/n-reaper-plugins/alias-track/5d6fb8f38b43a40627abb33d34f0c405466e38c3/screenshot.png">Screenshot</link>
+      </metadata>
+      <version name="0.1.0" author="_n_plugins" time="2026-09-30T22:14:17Z">
+        <changelog><![CDATA[* Group selected items inside one folder: ALIAS lane + one empty-MIDI alias item per instance.
+* Window model: move / trim (non-destructive) / split / copy of aliases; members derived with short fades on cut edges.
+* Cutting a member (split, razor) cuts the alias and the rest of the group; members are split natively and handed over,
+  not recreated.
+* Linked copies on the ALIAS lane, independent variants on the COPIES lane; Make unique / Link; variants named "Name #n".
+* Member edits propagate to linked aliases; MIXED state with Apply / Revert for what cannot be applied automatically.
+* Push selected edits (chunk: FX, envelopes, takes), Add / Remove selected, Flatten, Ungroup, Rename, Detach all.
+* Fresh item / take / FX GUIDs for every materialised copy; MIDI pool kept on the linked lane (setting).
+* Undo modes: "One step per edit" (silent syncs, default) and "Separate sync steps" (pauses after undoing a sync).
+* Debounced live sync (0.3 s, waits for mouse release with js_ReaScriptAPI), Freeze.
+* ReaImGui window in the 262° theme; macOS installer; offline tests: 261 checks.]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/n-reaper-plugins/alias-track/5d6fb8f38b43a40627abb33d34f0c405466e38c3/dist/AliasTrack.lua</source>
+      </version>
+    </reapack>
     <reapack name="GainStageEQ.lua" type="script" desc="Gain Stage EQ: set the level of a track (average / peak) and level its 4-band spectrum tilt with ReaEQ">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 Arial;}}
