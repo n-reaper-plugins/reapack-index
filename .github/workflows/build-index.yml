@@ -15,9 +15,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Ruby and reapack-index CLI
-        run: |
-          sudo gem install reapack-index
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Install reapack-index CLI
+        run: gem install reapack-index
 
       - name: Clone plugin repositories temporarily
         run: |
@@ -31,8 +35,8 @@ jobs:
 
       - name: Generate index.xml
         run: |
-          # Scans all repositories inside temp_repos and outputs index.xml in root
-          reapack-index --commit --name "_n_plugins Plugins" --amend temp_repos/*
+          # Use --no-commit to generate/update index.xml without prompting or committing inside Ruby
+          reapack-index --no-commit --name "_n_plugins Plugins" temp_repos/*
 
       - name: Clean up temporary clones
         if: always()
