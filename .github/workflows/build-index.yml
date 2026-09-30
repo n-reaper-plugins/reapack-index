@@ -46,7 +46,6 @@ jobs:
 
       - name: Generate index.xml
         run: |
-                  
           # Remove existing output file to start clean
           rm -f index.xml
 
