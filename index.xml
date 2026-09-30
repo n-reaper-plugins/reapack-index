@@ -32,7 +32,7 @@
 \pard 3. The pattern is rendered into the item's time range: audio items on tracks under a GINGERSNAP folder, and/or MIDI notes (one track per $: line). Move or resize the item and the result follows. s("bd:3") = 4th file of folder bd; s("bd").n(3) too.  1 cycle = "beats per cycle" quarter notes (default 4). Run the action again while the window is open to close it. Pattern engine: strudel-lua, a Lua implementation of Strudel's semantics. AGPL-3.0-or-later.\par
 }]]></description>
         <link rel="website" href="https://github.com/n-reaper-plugins/gingersnap-repl">gingersnap-repl</link>
-        <link rel="screenshot" href="https://raw.githubusercontent.com/n-reaper-plugins/gingersnap-repl/e35e4cd272654d6438951d3f33585fa2d7dd0246/screenshot.png">Screenshot</link>
+        <link rel="screenshot" href="https://raw.githubusercontent.com/n-reaper-plugins/gingersnap-repl/c6217fd5f823f0e11a4be8332eb09167311c0708/screenshot.png">Screenshot</link>
       </metadata>
       <version name="0.1.0" author="_n_plugins" time="2026-09-30T10:35:15Z">
         <changelog><![CDATA[* Named Gingersnap (working title was StrudelReaper).
@@ -51,7 +51,7 @@
 \pard Run this action to open the Granular window. The first run also starts the background engine and installs the JSFX "Granular Generator (control)" (Effects/Granular/GranularGen.jsfx). Run it again to show/hide the window. The engine keeps running until you press "Quit engine". Window needs ReaImGui (ReaPack > ReaTeam Extensions); without it the engine runs headless and running the action again stops it.\par
 }]]></description>
         <link rel="website" href="https://github.com/n-reaper-plugins/granular-generator">granular-generator</link>
-        <link rel="screenshot" href="https://raw.githubusercontent.com/n-reaper-plugins/granular-generator/64b1b8ec5fd4434e3d56e287636d5512e90ecaf1/screenshot.png">Screenshot</link>
+        <link rel="screenshot" href="https://raw.githubusercontent.com/n-reaper-plugins/granular-generator/aa3a3d7d1e6c215fd651f6d5d9f597d98601895c/screenshot.png">Screenshot</link>
       </metadata>
       <version name="0.2.1" author="_n_plugins" time="2026-09-30T10:35:43Z">
         <changelog><![CDATA[- Preview moved to the top of the window; parameters in three logical columns (when & where / sound / pattern & shaping).
