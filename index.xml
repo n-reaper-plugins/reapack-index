@@ -55,7 +55,7 @@
 \pard 3. The pattern is rendered into the item's time range: audio items on tracks under a GINGERSNAP folder, and/or MIDI notes (one track per $: line). Move or resize the item and the result follows. s("bd:3") = 4th file of folder bd; s("bd").n(3) too.  1 cycle = "beats per cycle" quarter notes (default 4). Run the action again while the window is open to close it. Pattern engine: strudel-lua, a Lua implementation of Strudel's semantics. AGPL-3.0-or-later.\par
 }]]></description>
         <link rel="website" href="https://github.com/n-reaper-plugins/gingersnap-repl">gingersnap-repl</link>
-        <link rel="screenshot" href="https://raw.githubusercontent.com/n-reaper-plugins/gingersnap-repl/c6217fd5f823f0e11a4be8332eb09167311c0708/screenshot.png">Screenshot</link>
+        <link rel="screenshot" href="https://raw.githubusercontent.com/n-reaper-plugins/gingersnap-repl/29c299915d9eb80b00969a2378f976d2cd3dc2c6/screenshot.png">Screenshot</link>
       </metadata>
       <version name="0.1.0" author="_n_plugins" time="2026-09-30T10:35:15Z">
         <changelog><![CDATA[* Named Gingersnap (working title was StrudelReaper).
@@ -66,6 +66,29 @@
 * Live rendering with debounce, keyed diff (hand edits survive), errors pause rendering, per-pattern Freeze, Detach.
 * strudel-lua: mini-notation, whitelist evaluator, ~90 functions, checked against Strudel 1.2.6 (483/483 identical).]]></changelog>
         <source main="main">https://raw.githubusercontent.com/n-reaper-plugins/gingersnap-repl/e35e4cd272654d6438951d3f33585fa2d7dd0246/dist/Gingersnap.lua</source>
+      </version>
+      <version name="0.2.0" author="n-reaper-plugins" time="2026-10-01T08:20:09Z">
+        <changelog><![CDATA[Everything below exists in Strudel 1.2.6 and is diffed against it (789 reference expressions, all identical). Nothing was invented.
+
+**Tonal** `scale` (92 scale types from tonal.js; `n` → `note`), `scaleTranspose` / `scaleTrans` / `strans`, `transpose` / `trans`, `octave` / `oct`
+(MIDI notes), `.add(note(...))` on note names (checked).
+**Samples** `note(...)` repitches a sample (rate = 2^((note − root)/12), root note is a setting, default 36); `begin` / `end`; `chop`, `striate`,
+`slice`, `splice`, `bite`, `squeeze`; `loopAt`, `fit` (follow the REAPER tempo map); `loop`; `cut` groups; negative `speed` = reversed take;
+`bank("X")` (folder `X_<sound>` first); `postgain`.
+**Drum names** new global setting *Standard drum aliases* (off by default): `sd rim lt mt ht cr rd cb perc` as General MIDI drums and as folder
+aliases (`sd` ⇄ `sn` / `snare` …). **Behaviour change:** these nine names no longer map to GM drums unless the setting is on.
+**Rhythm / structure** `swing`, `swingBy`, `brak`, `press`, `pressBy`, `within`, `plyWith`, `euclidLegato`, `euclidLegatoRot`, `ribbon` / `rib`,
+`reset`, `restart`, `shuffle`, `scramble`, `arrange`, `stepcat`, `polymeter` / `polyrhythm` (function forms), `pick`, `pickmod`, `pickF`,
+`pickRestart`, `pickReset`, `pickOut`, `inhabit` and their variants (arrays and `{ a: x }` object lookups).
+**Random** `choose`, `chooseWith`, `chooseCycles` (= `randcat`), `wchoose`, `wchooseCycles` (= `wrandcat`), `perlin`, `berlin`.
+**MIDI** `ccn` + `ccv`, `progNum`, `midibend` → controller / program change / pitch bend events; `midichan` is its own control (same effect as `channel`).
+**Not added because they do not exist in Strudel 1.2.6:** `sew`, `stitch`, `rolled` / `rolledBy`, `euclidOff`, `euclidInv`, `cc()`, `pitchbend`,
+`cycleChoose` (Strudel calls it `chooseCycles`). `pickmodF` is broken in Strudel 1.2.6 and was left out. `.o()` is Strudel's `orbit`, not octave.
+**Moved to 0.2.5:** chords (`chord`, `rootNotes`, `mode`, `anchor`, `voicing`, `dict`) and `arp` / `arpWith`.
+**Project** the real-Strudel test harness is now called `reference` (folder `strudel-lua/reference/`, `test_reference.lua`) and includes
+`@strudel/tonal`; `fuzz.mjs --v02` fuzzes the new functions. New tests: `tools/test_v02.lua` (100 checks), 19 more unit checks.
+**Not verified in real REAPER:** reverse (action 41051), `D_STARTOFFS`, `B_LOOPSRC`, `MIDI_InsertCC`, the two new settings in the window.]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/n-reaper-plugins/gingersnap-repl/29c299915d9eb80b00969a2378f976d2cd3dc2c6/dist/Gingersnap.lua</source>
       </version>
     </reapack>
     <reapack name="Granular.lua" type="script" desc="Granular: live granular synthesis on REAPER items (one action: engine + window)">
